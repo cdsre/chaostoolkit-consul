@@ -15,7 +15,6 @@ def upsert_value_for_key(
     """
     return bool(client.kv.put(key, value))
 
-
 def delete_key(key: str) -> bool:
     """
     Delete a key in the Consul KV store.
