@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
 from chaoslib.types import Configuration, Secrets
+from consul import Consul
 
-__all__ = ["empty_action"]
+__all__ = ["set_value_for_key"]
+
+client = Consul()
 
 
-def empty_action(
-    configuration: Configuration = None, secrets: Secrets = None
-) -> None:
-    return None
+def set_value_for_key(key: str, value: str, ) -> bool:
+    """
+    Set a key/value pair in the Consul KV store.
+    """
+    return client.kv.put(key, value)

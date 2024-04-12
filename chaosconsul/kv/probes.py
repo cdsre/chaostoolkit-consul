@@ -1,50 +1,28 @@
 # -*- coding: utf-8 -*-
-from chaoslib.types import Configuration, Secrets
 from chaoslib.exceptions import FailedActivity
 from chaoslib.types import Configuration, Secrets
 from consul import Consul
 
-__all__ = ["empty_probe"]
+__all__ = ["key_exists", "get_value_for_key"]
+
+client = Consul()
 
 
-def empty_probe(
-        configuration: Configuration = None, secrets: Secrets = None
-) -> bool:
-    return True
-
-
-def consul_get_service_status(service_name: str) -> bool:
+def key_exists(key: str) -> bool:
     """
-    Get the status of a service in Consul.
-
-    The status is considered OK if the service is in the passing state.
-
-    Parameters
-    ----------
-    service_name : str
-        The name of the service to check the status of
-
-    Returns
-    -------
-    bool
-        True if the service is passing, False otherwise
+    Check if a key exists in the Consul KV store.
     """
 
-    configuration = Configuration.load()
-    secrets = Secrets.load()
+    index, data = client.kv.get(key)
+    return data is not None
 
-    client = Consul(
-        host=secrets["consul_host"],
-        port=secrets.get("consul_port", 8500),
-        token=secrets.get("consul_token", None),
-        scheme=secrets.get("consul_scheme", "http")
-    )
 
-    index, nodes = client.health.service(service_name)
-    passing = [node for node in nodes if node["Status"] == "passing"]
+def get_value_for_key(key: str) -> str:
+    """
+    Get the value for a key in the Consul KV store.
+    """
 
-    if not passing:
-        raise FailedActivity(
-            "Service '{s}' is not passing".format(s=service_name))
-
-    return True
+    index, data = client.kv.get(key)
+    if data is None:
+        raise FailedActivity(f"Key '{key}' does not exist in the Consul KV store")
+    return data["Value"].decode("utf-8")

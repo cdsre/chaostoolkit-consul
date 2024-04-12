@@ -1,0 +1,69 @@
+title: Test the key-value store
+description: >-
+    This experiment will test the key-value store by writing a key and then
+    reading it back.
+tags:
+  - tutorial
+  - consul
+  - kv
+configuration:
+  key: foo
+
+steady-state-hypothesis:
+  title: The key exists and has a value
+  probes:
+    - type: probe
+      name: key-exists
+      tolerance:
+        - True
+      provider:
+        type: python
+        module: chaosconsul.kv.probes
+        func: key_exists
+        arguments:
+          key: '${key}'
+    - type: probe
+      name: check-key-value
+      tolerance:
+        - bar
+        - baz
+      provider:
+        type: python
+        module: chaosconsul.kv.probes
+        func: get_value_for_key
+        arguments:
+          key: '${key}'
+
+method:
+  - name: pause-execution
+    type: action
+    provider:
+      func: pause_execution
+      module: chaosreliably.activities.pauses
+      type: python
+      arguments:
+        duration: 3
+  - name: set kv value for existing key
+    type: action
+    provider:
+      type: python
+      module: chaosconsul.kv.actions
+      func: set_value_for_key
+      arguments:
+        key: '${key}'
+        value: baz
+  - name: pause-execution
+    type: action
+    provider:
+      func: pause_execution
+      module: chaosreliably.activities.pauses
+      type: python
+      arguments:
+        duration: 3
+
+
+
+
+runtime:
+  hypothesis:
+    strategy: continuously
