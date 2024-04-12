@@ -26,7 +26,7 @@ $ pip install -U chaostoolkit-consul
 There are a collection of examples that will continue to grow as use picks up in the module. These are written as 
 individual experiments that can be run with the Chaos Toolkit.
 
-* [KV Example](./examples/kv_example.yaml)
+* [KV Example](./examples/kv_experiment.yaml)
 
 Please explore the code to see existing probes and actions.
 
