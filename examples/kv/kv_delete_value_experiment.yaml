@@ -8,6 +8,7 @@ tags:
   - kv
 configuration:
   key: foo
+  value: bar
 
 steady-state-hypothesis:
   title: The key exists and has a value
@@ -48,10 +49,9 @@ method:
     provider:
       type: python
       module: chaosconsul.kv.actions
-      func: set_value_for_key
+      func: delete_key
       arguments:
         key: '${key}'
-        value: baz
   - name: pause-execution
     type: action
     provider:
@@ -61,8 +61,16 @@ method:
       arguments:
         duration: 3
 
-
-
+rollbacks:
+  - name: rollback-delete-key
+    type: action
+    provider:
+      type: python
+      module: chaosconsul.kv.actions
+      func: upsert_value_for_key
+      arguments:
+        key: '${key}'
+        value: bar
 
 runtime:
   hypothesis:
