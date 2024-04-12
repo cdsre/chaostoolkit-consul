@@ -1,41 +1,43 @@
-# Chaos Toolkit Extension Template
+ # Chaos Toolkit Extension for Hashicorp Consul
+[![Build Status](https://travis-ci.org/chaostoolkit-incubator/chaostoolkit-istio.svg?branch=master)](https://travis-ci.org/chaostoolkit-incubator/chaostoolkit-istio)
+[![Python versions](https://img.shields.io/pypi/pyversions/chaostoolkit-istio.svg)](https://www.python.org/)
 
-[![Version](https://img.shields.io/pypi/v/chaostoolkit-my-extension.svg)](https://img.shields.io/pypi/v/chaostoolkit-lib.svg)
-[![License](https://img.shields.io/pypi/l/chaostoolkit-my-extension.svg)](https://img.shields.io/pypi/l/chaostoolkit-lib.svg)
 
-[![Build, Test, and Lint](https://github.com/chaostoolkit/chaostoolkit-extension-template/actions/workflows/build.yaml/badge.svg)](https://github.com/chaostoolkit/chaostoolkit-extension-template/actions/workflows/build.yaml)
-[![Python versions](https://img.shields.io/pypi/pyversions/chaostoolkit-my-extension.svg)](https://www.python.org/)
+This project is a collection of [actions][] and [probes][], gathered as an
+extension to the [Chaos Toolkit][chaostoolkit].
 
-This project should be used as a starting point to create your own
-Chaos Toolkit extension.
+[actions]: http://chaostoolkit.org/reference/api/experiment/#action
+[probes]: http://chaostoolkit.org/reference/api/experiment/#probe
+[chaostoolkit]: http://chaostoolkit.org
 
 ## Install
 
-This package requires Python 3.7+
+This package requires Python 3.6+
 
 To be used from your experiment, this package must be installed in the Python
 environment where [chaostoolkit][] already lives.
 
-[chaostoolkit]: https://github.com/chaostoolkit/chaostoolkit
-
 ```
-$ pip install chaostoolkit-<your extension name here>
+$ pip install -U chaostoolkit-consul
 ```
-
 
 ## Usage
 
-<Explain your probes and actions usage from the experiment.json here>
+There are a collection of examples that will continue to grow as use picks up in the module. These are written as 
+individual experiments that can be run with the Chaos Toolkit.
 
-That's it!
+* [KV Example](./examples/kv_example.yaml)
 
 Please explore the code to see existing probes and actions.
 
 ## Configuration
 
-<Specify any extra configuration your extension relies on here>
+This extension needs you specify how to connect to the consul cluster. Please refer to the [consul ENV][consul-env] docs
+for more information.
 
-## Test
+[consul-env]: https://developer.hashicorp.com/consul/commands#environment-variables
+
+### Test
 
 To run the tests for the project execute the following:
 

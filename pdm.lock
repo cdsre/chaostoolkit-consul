@@ -3,10 +3,9 @@
 
 [metadata]
 groups = ["default", "dev"]
-cross_platform = true
-static_urls = false
-lock_version = "4.3"
-content_hash = "sha256:e90e0f17544976a5cfdde2fbb0fedbc766569cb4b8c4dd304c1f2f9f247ac422"
+strategy = ["cross_platform"]
+lock_version = "4.4.1"
+content_hash = "sha256:bdb4d840f7e162e82381160fb1b9e5406225f5befafd7a262d131626dd1254d3"
 
 [[package]]
 name = "bandit"
@@ -563,6 +562,18 @@ dependencies = [
 files = [
     {file = "pluggy-1.2.0-py3-none-any.whl", hash = "sha256:c2fd55a7d7a3863cba1a013e4e2414658b1d07b6bc57b3919e0c63c9abb99849"},
     {file = "pluggy-1.2.0.tar.gz", hash = "sha256:d12f0c4b579b15f5e054301bb226ee85eeeba08ffec228092f8defbaa3a4c4b3"},
+]
+
+[[package]]
+name = "py-consul"
+version = "1.4.1"
+summary = "Python client for Consul (http://www.consul.io/)"
+dependencies = [
+    "requests>=2.0",
+]
+files = [
+    {file = "py-consul-1.4.1.tar.gz", hash = "sha256:01d8a778654107a3b3c90f5f8e6032e207e6c49db8505de7b1709540f8954b6a"},
+    {file = "py_consul-1.4.1-py2.py3-none-any.whl", hash = "sha256:81b09506c71ccfba7d5c055918a5c61822ce2fa117c70c654f22b680fdadf6df"},
 ]
 
 [[package]]
